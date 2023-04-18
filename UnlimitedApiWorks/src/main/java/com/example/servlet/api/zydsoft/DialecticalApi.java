@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.servlet.api.zydsoft.utils.DialecticalCloud;
 import com.example.utils.BaseUtil;
+import com.example.utils.ErrorLogger;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
@@ -35,18 +36,19 @@ public class DialecticalApi extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = request.getParameter("url");
         if (BaseUtil.isEmpty(url)) {
-            response.getWriter().write("{\"code\":400,\"message\":\"参数不符合规则\"}");
+            response.getWriter().write("{\"code\":400,\"message\":\"url不能为空\"}");
             return;
         }
         SortedMap<Object, Object> param = reqParamTraver(request);
         // 获取请求头中的Content-Type字段
         String contentType = request.getContentType();
+        String reqBody = "";
         try {
             if (contentType != null && contentType.contains("application/json")) {
                 // 获取请求体中的JSON数据
                 InputStream inputStream = request.getInputStream();
                 // 将JSON数据转换为字符串
-                String reqBody = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+                reqBody = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
                 // 检查是否为JSON数据格式（失败会到try catch）
                 JSONObject jsonObject = JSON.parseObject(reqBody);
                 response.getWriter().write(DialecticalCloud.doPost(url, param, jsonObject));
@@ -54,7 +56,8 @@ public class DialecticalApi extends HttpServlet {
                 response.getWriter().write("{\"code\":400,\"message\":\"contentType不符合规则\"}");
             }
         } catch (Exception e) {
-            response.getWriter().write("{\"code\":400,\"message\":\"参数不符合规则\"}");
+            ErrorLogger.logException("辩证云请求异常", e);
+            response.getWriter().write("{\"code\":400,\"message\":\"参数不符合规则 reqBody: " + reqBody + "\"}");
             throw new RuntimeException(e);
         }
     }

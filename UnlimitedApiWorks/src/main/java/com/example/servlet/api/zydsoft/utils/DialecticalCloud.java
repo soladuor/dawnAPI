@@ -8,6 +8,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -57,14 +59,13 @@ public class DialecticalCloud {
 
     public static String createPostSign(SortedMap<Object, Object> param, JSONObject post_params) {
         StringBuilder stringA = new StringBuilder();
-        long timestamp = System.currentTimeMillis() / 1000;
+        // long timestamp = System.currentTimeMillis() / 1000; // 获取时间戳
         String paramStr = createGetSign(param, true);
-        stringA.append(paramStr).append("post_params=").append(post_params)
-                .append("&timestamp=").append(timestamp)
-                .append("&");
         // 加密并转换为大写字符
+        stringA.append(paramStr).append("post_params=").append(post_params).append("&");
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
-        return stringA + "&sign=" + sign;
+        String stringB = paramStr + "post_params=" + URLEncoder.encode(post_params.toString(), StandardCharsets.UTF_8) + "&";
+        return stringB + "sign=" + sign;
     }
 
     public static String getTokenFromApi() {

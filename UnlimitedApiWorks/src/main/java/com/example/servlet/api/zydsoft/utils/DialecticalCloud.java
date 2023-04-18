@@ -8,8 +8,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -45,7 +43,7 @@ public class DialecticalCloud {
             Object value = e.getValue();
             // 空值不传递，不参与签名组串
             if (null != value && !"".equals(value)) {
-                stringA.append(key + "=" + value + "&");
+                stringA.append(key).append("=").append(value).append("&");
             }
         }
         if (isPost) {
@@ -62,10 +60,9 @@ public class DialecticalCloud {
         // long timestamp = System.currentTimeMillis() / 1000; // 获取时间戳
         String paramStr = createGetSign(param, true);
         // 加密并转换为大写字符
-        stringA.append(paramStr).append("post_params=").append(post_params).append("&");
+        stringA.append("post_params=").append(post_params).append("&").append(paramStr);
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
-        String stringB = paramStr + "post_params=" + URLEncoder.encode(post_params.toString(), StandardCharsets.UTF_8) + "&";
-        return stringB + "sign=" + sign;
+        return paramStr + "sign=" + sign;
     }
 
     public static String getTokenFromApi() {
@@ -88,25 +85,22 @@ public class DialecticalCloud {
         return (String) token;
     }
 
-
     public void start() {
         // 定时线程池，设置好频率（比如1Min）它会按照这个间隔按部就班的工作
         // 但是，如果其中一次调度任务卡住的话，不仅这次调度失败，而且整个线程池也会停在这次调度上
         // 解决方案是添加一个try catch
-        final Runnable updateTask = new Runnable() {
-            public void run() {
-                try {
-                    // 获取新token的代码
-                    String newToken = DialecticalCloud.getTokenFromApi();
-                    if (newToken != null) {
-                        // 更新当前token
-                        token = newToken;
-                    } else {
-                        ErrorLogger.error("token没有更新", "自动任务没有得到token");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        final Runnable updateTask = () -> {
+            try {
+                // 获取新token的代码
+                String newToken = DialecticalCloud.getTokenFromApi();
+                if (newToken != null) {
+                    // 更新当前token
+                    token = newToken;
+                } else {
+                    ErrorLogger.error("token没有更新", "自动任务没有得到token");
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         };
         // 每隔7000秒执行一次更新任务

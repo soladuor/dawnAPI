@@ -1,6 +1,6 @@
 package com.example.servlet.api.zydsoft.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.singleton.IdentifierSingleton;
 import com.example.utils.BaseHttpUtil;
 import com.example.utils.ErrorLogger;

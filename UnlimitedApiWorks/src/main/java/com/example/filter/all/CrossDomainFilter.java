@@ -5,7 +5,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "CrossDomainFilter")
+@WebFilter(filterName = "CrossDomainFilter", urlPatterns = "/*")
 public class CrossDomainFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {

@@ -22,14 +22,14 @@ public class DialecticalCloud {
 
     public static String doGet(String url, SortedMap<Object, Object> parameters) {
         String baseUrl = IdentifierSingleton.getInstance().getBaseUrl();
-        HttpGet httpGet = new HttpGet(baseUrl + url + "?" + createGetSign(parameters, false));
+        HttpGet httpGet = new HttpGet(baseUrl + "/" + url + "?" + createGetSign(parameters, false));
         httpGet.addHeader("Authorization", "Bearer " + token);
         return BaseHttpUtil.doGet(httpGet, true);
     }
 
     public static String doPost(String url, SortedMap<Object, Object> param, JSONObject post_params) {
         String baseUrl = IdentifierSingleton.getInstance().getBaseUrl();
-        HttpPost httpPost = new HttpPost(baseUrl + url + "?" + createPostSign(param, post_params));
+        HttpPost httpPost = new HttpPost(baseUrl + "/" + url + "?" + createPostSign(param, post_params));
         httpPost.addHeader("Authorization", "Bearer " + token);
         httpPost.addHeader("Content-Type", "application/json");
         return BaseHttpUtil.doPost(httpPost, post_params, true);

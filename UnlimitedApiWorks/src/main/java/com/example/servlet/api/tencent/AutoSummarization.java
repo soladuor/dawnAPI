@@ -1,12 +1,9 @@
 package com.example.servlet.api.tencent;
 
-import com.example.singleton.IdentifierSingleton;
+import com.example.servlet.api.tencent.utils.TencentCloudNpl;
 import com.example.utils.BaseUtil;
 import com.example.utils.ErrorLogger;
-import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.nlp.v20190408.NlpClient;
 import com.tencentcloudapi.nlp.v20190408.models.AutoSummarizationRequest;
 import com.tencentcloudapi.nlp.v20190408.models.AutoSummarizationResponse;
@@ -39,6 +36,10 @@ Credential cred = new Credential("SecretId", "SecretKey");
    Credential cred = new DefaultCredentialsProvider().getCredentials();
 System.getenv("xxx")可以拿到环境变量的信息
 */
+
+/**
+ * 自动摘要
+ */
 @WebServlet(name = "AutoSummarization", value = "/api/tencent/AutoSummarization")
 public class AutoSummarization extends HttpServlet {
     @Override
@@ -50,23 +51,15 @@ public class AutoSummarization extends HttpServlet {
             return;
         }
         try {
-            String SecretId = IdentifierSingleton.getInstance().getTencentSecretId();
-            String SecretKey = IdentifierSingleton.getInstance().getTencentSecretKey();
-            Credential cred = new Credential(SecretId, SecretKey);
-            // 实例化一个http选项，可选的，没有特殊需求可以跳过
-            HttpProfile httpProfile = new HttpProfile();
-            httpProfile.setEndpoint("nlp.tencentcloudapi.com");
-            // 实例化一个client选项，可选的，没有特殊需求可以跳过
-            ClientProfile clientProfile = new ClientProfile();
-            clientProfile.setHttpProfile(httpProfile);
-            // 实例化要请求产品的client对象,clientProfile是可选的
-            NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
+            NlpClient client = TencentCloudNpl.NlpClientConfig(
+                    "nlp.tencentcloudapi.com",
+                    "ap-guangzhou");
             // 实例化一个请求对象,每个接口都会对应一个request对象
             AutoSummarizationRequest req = new AutoSummarizationRequest();
             req.setText(text);
-            String l = request.getParameter("Length");
-            if (l != null) {
-                req.setLength(Long.parseLong(l));
+            String length = request.getParameter("Length");
+            if (length != null) {
+                req.setLength(Long.parseLong(length));
             }
             // 返回的resp是一个AutoSummarizationResponse的实例，与请求对象对应
             AutoSummarizationResponse resp = client.AutoSummarization(req);

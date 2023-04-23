@@ -9,8 +9,11 @@ import java.io.IOException;
 public class CrossDomainFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+        HttpServletResponse resp = (HttpServletResponse) response;
         // 解决跨域问题，允许所有域名访问
-        ((HttpServletResponse) response).setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        // 设置响应头信息以允许跨域访问
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
         chain.doFilter(request, response);
     }
 }

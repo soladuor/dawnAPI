@@ -1,15 +1,13 @@
 package com.example.servlet.api.zydsoft.utils;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.example.singleton.IdentifierSingleton;
 import com.example.utils.BaseHttpUtil;
+import com.example.utils.BaseUtil;
 import com.example.utils.ErrorLogger;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
-import java.util.Map;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,45 +20,40 @@ public class DialecticalCloud {
 
     public static String doGet(String url, SortedMap<Object, Object> parameters) {
         String baseUrl = IdentifierSingleton.getInstance().getBaseUrl();
-        HttpGet httpGet = new HttpGet(baseUrl + "/" + url + "?" + createGetSign(parameters, false));
+        HttpGet httpGet = new HttpGet(baseUrl + "/" + url + "?" + createGetSign(parameters));
         httpGet.addHeader("Authorization", "Bearer " + token);
+        // 如果发现客户端或服务器出现了类似于长时间等待或资源耗尽等问题，可以尝试使用"Connection: close"请求头关闭连接
+        // httpGet.addHeader("Connection", "close");
         return BaseHttpUtil.doGet(httpGet, true);
     }
 
-    public static String doPost(String url, SortedMap<Object, Object> param, JSONObject post_params) {
+    public static String doPost(String url, SortedMap<Object, Object> param, String post_params) {
         String baseUrl = IdentifierSingleton.getInstance().getBaseUrl();
         HttpPost httpPost = new HttpPost(baseUrl + "/" + url + "?" + createPostSign(param, post_params));
         httpPost.addHeader("Authorization", "Bearer " + token);
         httpPost.addHeader("Content-Type", "application/json");
+        // 如果发现客户端或服务器出现了类似于长时间等待或资源耗尽等问题，可以尝试使用"Connection: close"请求头关闭连接
+        // httpPost.addHeader("Connection", "close");
         return BaseHttpUtil.doPost(httpPost, post_params, true);
     }
 
-    public static String createGetSign(SortedMap<Object, Object> parameters, boolean isPost) {
-        StringBuilder stringA = new StringBuilder();
-        Set<Map.Entry<Object, Object>> entrySet = parameters.entrySet();  // 所有参与传参的参数按照accsii排序（升序）
-        for (Map.Entry<Object, Object> e : entrySet) {
-            String key = (String) e.getKey();
-            Object value = e.getValue();
-            // 空值不传递，不参与签名组串
-            if (null != value && !"".equals(value)) {
-                stringA.append(key).append("=").append(value).append("&");
-            }
-        }
-        if (isPost) {
-            return stringA.toString();
-        }
+    public static String createGetSign(SortedMap<Object, Object> parameters) {
+        // long timestamp = System.currentTimeMillis() / 1000;
+        // parameters.put("timestamp", timestamp); // 添加时间戳
+        StringBuilder stringA = BaseUtil.asciiSortAndConcatenateParams(parameters);
         // 加密并转换为大写字符
         // stringA是StringBuffer类型，可以用stringA.toString()转换为String类型
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
         return stringA + "sign=" + sign;
     }
 
-    public static String createPostSign(SortedMap<Object, Object> param, JSONObject post_params) {
-        StringBuilder stringA = new StringBuilder();
-        // long timestamp = System.currentTimeMillis() / 1000; // 获取时间戳
-        String paramStr = createGetSign(param, true);
+    public static String createPostSign(SortedMap<Object, Object> param, String post_params) {
+        // long timestamp = System.currentTimeMillis() / 1000;
+        // param.put("timestamp", timestamp); // 添加时间戳
+        String paramStr = BaseUtil.asciiSortAndConcatenateParams(param).toString();
+        param.put("post_params", post_params);
         // 加密并转换为大写字符
-        stringA.append("post_params=").append(post_params).append("&").append(paramStr);
+        StringBuilder stringA = BaseUtil.asciiSortAndConcatenateParams(param);
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
         return paramStr + "sign=" + sign;
     }

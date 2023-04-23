@@ -1,7 +1,5 @@
 package com.example.servlet.api.zydsoft;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.example.servlet.api.zydsoft.utils.DialecticalCloud;
 import com.example.utils.BaseUtil;
 import com.example.utils.ErrorLogger;
@@ -50,8 +48,8 @@ public class DialecticalApi extends HttpServlet {
                 // 将JSON数据转换为字符串
                 reqBody = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
                 // 检查是否为JSON数据格式（失败会到try catch）
-                JSONObject jsonObject = JSON.parseObject(reqBody);
-                response.getWriter().write(DialecticalCloud.doPost(url, param, jsonObject));
+                // JSONObject jsonObject = JSON.parseObject(reqBody);
+                response.getWriter().write(DialecticalCloud.doPost(url, param, reqBody));
             } else {
                 response.getWriter().write("{\"code\":400,\"message\":\"contentType不符合规则\"}");
             }

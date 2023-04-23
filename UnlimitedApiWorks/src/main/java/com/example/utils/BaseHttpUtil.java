@@ -1,6 +1,5 @@
 package com.example.utils;
 
-import com.alibaba.fastjson2.JSONObject;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,7 +14,6 @@ import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
-import java.util.Objects;
 
 public class BaseHttpUtil {
     /**
@@ -144,7 +142,7 @@ public class BaseHttpUtil {
      * @param isHttps     是否为 https 请求
      * @return 响应报文
      */
-    public static String doPost(String url, JSONObject paramEntity, boolean isHttps) {
+    public static String doPost(String url, String paramEntity, boolean isHttps) {
         String responseContent = "{}"; // 响应报文
         // 1.创建HttpClient对象
         CloseableHttpClient httpClient = null;
@@ -156,9 +154,8 @@ public class BaseHttpUtil {
             HttpPost httpPost = new HttpPost(url);
             httpPost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
             // 3.设置请求参数
-            if (!Objects.isNull(paramEntity)) {
-                String paramStr = JSONObject.toJSONString(paramEntity);
-                StringEntity entity = new StringEntity(paramStr, ContentType.create("application/json", "utf-8"));
+            if (!BaseUtil.isEmpty(paramEntity)) {
+                StringEntity entity = new StringEntity(paramEntity, ContentType.create("application/json", "utf-8"));
                 httpPost.setEntity(entity);
             }
             // 4.执行请求
@@ -191,7 +188,7 @@ public class BaseHttpUtil {
      * @param isHttps     是否为 https 请求
      * @return 响应报文
      */
-    public static String doPost(HttpPost httpPost, JSONObject paramEntity, boolean isHttps) {
+    public static String doPost(HttpPost httpPost, String paramEntity, boolean isHttps) {
         String responseContent = "{}"; // 响应报文
         // 1.创建HttpClient对象
         CloseableHttpClient httpClient = null;
@@ -202,9 +199,8 @@ public class BaseHttpUtil {
             // 2.生成post请求对象，并设置请求头信息
             httpPost.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36");
             // 3.设置请求参数
-            if (!Objects.isNull(paramEntity)) {
-                String paramStr = JSONObject.toJSONString(paramEntity);
-                StringEntity entity = new StringEntity(paramStr, ContentType.create("application/json", "utf-8"));
+            if (!BaseUtil.isEmpty(paramEntity)) {
+                StringEntity entity = new StringEntity(paramEntity, ContentType.create("application/json", "utf-8"));
                 httpPost.setEntity(entity);
             }
             // 4.执行请求

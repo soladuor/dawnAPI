@@ -175,7 +175,7 @@
         }, function () {
             window.location.replace('${pageScope.path}?flag=deleteIP&id=' + id);
         }, function () {
-            layer.msg('正确的选择', {icon: 6, time: 1});
+            layer.msg('正确的选择', {icon: 6, time: 1000});
         });
     }
     const deleteErrLog = (id) => {

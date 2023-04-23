@@ -121,6 +121,7 @@
     <br>
 </div>
 <script src="<c:url value="/static/layui/layui.js"/>"></script>
+<script src="<c:url value="/static/lodash-4.17.21.min.js"/>"></script>
 <script>
     layui.use(() => {
         const layer = layui.layer
@@ -155,7 +156,7 @@
                 </form>`
         });
     }
-    const checkIP = (ip, description) => {
+    const checkIP = _.throttle((ip, description) => {
         const ipRegex = /^(?:(?:1\d{2}|2[0-4]\d|25[0-5]|\d\d?)\.){3}(?:1\d{2}|2[0-4]\d|25[0-5]|\d\d?)$/;
         if (ipRegex.test(ip)) {
             if (description != null && description !== "" && description !== undefined) {
@@ -166,7 +167,7 @@
         } else {
             layer.msg('IP地址格式错误', {icon: 2});
         }
-    }
+    }, 3000)
     const deleteIP = (id) => {
         layer.confirm('确定要删除吗？', {
             btn: ['确认', '取消'], //按钮

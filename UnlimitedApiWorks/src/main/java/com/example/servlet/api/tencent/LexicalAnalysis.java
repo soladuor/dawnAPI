@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * 词法分析
  */
-@WebServlet(name = "LexicalAnalysis", value = "/api/tencent/LexicalAnalysis")
+@WebServlet(name = "LexicalAnalysis", value = "/api/nlp/LexicalAnalysis")
 public class LexicalAnalysis extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

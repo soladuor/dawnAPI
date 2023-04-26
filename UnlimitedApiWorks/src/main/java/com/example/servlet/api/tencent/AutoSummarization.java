@@ -40,7 +40,7 @@ System.getenv("xxx")可以拿到环境变量的信息
 /**
  * 自动摘要
  */
-@WebServlet(name = "AutoSummarization", value = "/api/tencent/AutoSummarization")
+@WebServlet(name = "AutoSummarization", value = "/api/nlp/AutoSummarization")
 public class AutoSummarization extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

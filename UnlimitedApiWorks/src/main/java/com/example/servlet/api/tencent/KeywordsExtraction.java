@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * 关键词提取
  */
-@WebServlet(name = "KeywordsExtraction", value = "/api/tencent/KeywordsExtraction")
+@WebServlet(name = "KeywordsExtraction", value = "/api/nlp/KeywordsExtraction")
 public class KeywordsExtraction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

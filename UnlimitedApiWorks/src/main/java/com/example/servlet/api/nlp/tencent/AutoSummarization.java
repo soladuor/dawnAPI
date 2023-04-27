@@ -1,19 +1,4 @@
-package com.example.servlet.api.tencent;
-
-import com.example.servlet.api.tencent.utils.TencentCloudNpl;
-import com.example.utils.BaseUtil;
-import com.example.utils.ErrorLogger;
-import com.tencentcloudapi.common.exception.TencentCloudSDKException;
-import com.tencentcloudapi.nlp.v20190408.NlpClient;
-import com.tencentcloudapi.nlp.v20190408.models.AutoSummarizationRequest;
-import com.tencentcloudapi.nlp.v20190408.models.AutoSummarizationResponse;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+package com.example.servlet.api.nlp.tencent;
 
 /*
 不安全的方式（直接把秘钥放到代码）：
@@ -37,10 +22,11 @@ Credential cred = new Credential("SecretId", "SecretKey");
 System.getenv("xxx")可以拿到环境变量的信息
 */
 
-/**
- * 自动摘要
+/*
+  自动摘要
  */
-@WebServlet(name = "AutoSummarization", value = "/api/nlp/AutoSummarization")
+// @WebServlet(name = "AutoSummarization", value = "/api/nlp/AutoSummarization")
+/*
 public class AutoSummarization extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,3 +58,4 @@ public class AutoSummarization extends HttpServlet {
         }
     }
 }
+*/

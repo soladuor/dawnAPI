@@ -78,17 +78,11 @@
             <version>1.15</version>
         </dependency>
         <!--腾讯云api-java-SDK-->
-        <dependency>
-            <groupId>com.tencentcloudapi</groupId>
-            <artifactId>tencentcloud-sdk-java</artifactId>
-            <version>3.1.717</version>
-        </dependency>
-        <!--测试工具-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>com.tencentcloudapi</groupId>-->
+        <!--    <artifactId>tencentcloud-sdk-java</artifactId>-->
+        <!--    <version>3.1.717</version>-->
+        <!--</dependency>-->
         <!--下面两个是el表达式的-->
         <dependency>
             <groupId>org.apache.taglibs</groupId>
@@ -113,9 +107,17 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hankcs</groupId>
+            <artifactId>hanlp</artifactId>
+            <version>portable-1.8.4</version>
+        </dependency>
     </dependencies>
 
     <build>
+        <!--自定义打包名-->
+        <!--默认为 ${project.artifactId}-${project.version} -->
+        <!--<finalName>${project.artifactId}</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

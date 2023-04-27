@@ -1,7 +1,5 @@
 package com.example.utils;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -18,19 +16,6 @@ public class BaseUtil {
             }
         }
         return false;
-    }
-
-    public static String md5Encryption9901(String str) {
-        // Map<String, Integer> map = new HashMap<>();
-        System.out.println(str);
-        for (int i = 0; i < 9901; i++) {
-            str = DigestUtils.md5Hex(str).toUpperCase();
-            // map.put(str, i);
-        }
-        // System.out.println(str);
-        // System.out.println(str.length());
-        // System.out.println(map.size());
-        return str;
     }
 
     public static StringBuilder asciiSortAndConcatenateParams(SortedMap<Object, Object> parameters) {

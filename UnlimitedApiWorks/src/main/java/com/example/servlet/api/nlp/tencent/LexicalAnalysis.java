@@ -1,25 +1,11 @@
-package com.example.servlet.api.tencent;
+package com.example.servlet.api.nlp.tencent;
 
 
-import com.example.servlet.api.tencent.utils.TencentCloudNpl;
-import com.example.utils.BaseUtil;
-import com.example.utils.ErrorLogger;
-import com.tencentcloudapi.common.exception.TencentCloudSDKException;
-import com.tencentcloudapi.nlp.v20190408.NlpClient;
-import com.tencentcloudapi.nlp.v20190408.models.LexicalAnalysisRequest;
-import com.tencentcloudapi.nlp.v20190408.models.LexicalAnalysisResponse;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-/**
- * 词法分析
+/*
+  词法分析
  */
-@WebServlet(name = "LexicalAnalysis", value = "/api/nlp/LexicalAnalysis")
+// @WebServlet(name = "LexicalAnalysis", value = "/api/nlp/LexicalAnalysis")
+/*
 public class LexicalAnalysis extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,3 +40,4 @@ public class LexicalAnalysis extends HttpServlet {
         }
     }
 }
+*/

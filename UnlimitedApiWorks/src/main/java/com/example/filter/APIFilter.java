@@ -24,7 +24,7 @@ public class APIFilter implements Filter {
             }
             if (times <= 0) {
                 response.getWriter().write(
-                        "{\"code\":400,\"message\":\"请求次数过多\"}"
+                    "{\"code\":400,\"message\":\"请求次数过多\"}"
                 );
                 return;
             }
@@ -33,7 +33,7 @@ public class APIFilter implements Filter {
             chain.doFilter(request, response); // 放行
         } else {
             response.getWriter().write(
-                    "{\"code\":400,\"message\":\"ip " + ipAddress + "不在白名单中\"}"
+                "{\"code\":400,\"message\":\"ip " + ipAddress + "不在白名单中\"}"
             );
         }
     }

@@ -69,11 +69,11 @@ public class Whitelist {
     @Override
     public String toString() {
         return "Whitelist{" +
-                "id=" + id +
-                ", ip_address='" + ip_address + '\'' +
-                ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
-                ", created_at=" + created_at +
-                '}';
+            "id=" + id +
+            ", ip_address='" + ip_address + '\'' +
+            ", description='" + description + '\'' +
+            ", city='" + city + '\'' +
+            ", created_at=" + created_at +
+            '}';
     }
 }

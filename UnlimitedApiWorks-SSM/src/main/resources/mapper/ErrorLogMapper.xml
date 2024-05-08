@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.soladuor.mapper.ErrorLogMapper">
+
+    <insert id="addErrorLog">
+        INSERT INTO
+            error_logs (`error_type`, `error_message`, `error_stack`)
+        VALUES
+            (#{errorType}, #{errorMessage}, #{errorStack})
+    </insert>
+    <select id="getErrorList" resultType="com.soladuor.pojo.ErrorLog">
+        SELECT
+            `id`,
+            `error_type`,
+            `error_message`,
+            `error_time`,
+            `error_stack`
+        FROM
+            error_logs
+    </select>
+    <delete id="deleteAllErrorLog">
+        DELETE
+        FROM
+            error_logs
+    </delete>
+    <delete id="deleteErrorLogById">
+        DELETE
+        FROM
+            error_logs
+        WHERE
+            `id` = #{id}
+    </delete>
+</mapper>

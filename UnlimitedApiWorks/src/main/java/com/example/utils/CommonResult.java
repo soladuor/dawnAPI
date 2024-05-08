@@ -36,9 +36,17 @@ public class CommonResult {
         例如可以直接返回CommonResult.ok().setMessage("成功").setResultData(xxx);
      */
 
+    public boolean isFlag() {
+        return flag;
+    }
+
     public CommonResult setFlag(boolean flag) {
         this.flag = flag;
         return this;
+    }
+
+    public Object getResultData() {
+        return resultData;
     }
 
     public CommonResult setResultData(Object resultData) {
@@ -46,31 +54,21 @@ public class CommonResult {
         return this;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     public CommonResult setMessage(String message) {
         this.message = message;
         return this;
     }
 
-
-    public boolean isFlag() {
-        return flag;
-    }
-
-    public Object getResultData() {
-        return resultData;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-
     @Override
     public String toString() {
         return "CommonResult{" +
-                "flag=" + flag +
-                ", resultData=" + resultData +
-                ", message='" + message + '\'' +
-                '}';
+            "flag=" + flag +
+            ", resultData=" + resultData +
+            ", message='" + message + '\'' +
+            '}';
     }
 }

@@ -6,6 +6,7 @@ import com.example.bean.Whitelist;
 import com.example.dao.impl.ErrorLogsDAOImpl;
 import com.example.dao.impl.WhitelistDAOImpl;
 import com.example.servlet.BaseServlet;
+import com.example.servlet.api.zydsoft.utils.DialecticalCloud;
 import com.example.singleton.IdentifierSingleton;
 import com.example.singleton.WhitelistSingleton;
 import com.example.utils.BaseUtil;
@@ -69,10 +70,17 @@ public class WhitelistServlet extends BaseServlet {
         response.sendRedirect(request.getContextPath() + "/page/white/2214086D382FE0823550CAD6B19EA205?flag=getAllList");
     }
 
-    // 手动刷新
+    // 手动重新加载标识和ip白名单数据库
     public void refresh(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         IdentifierSingleton.getInstance().updateIdentifier(); // 刷新标识
         WhitelistSingleton.getInstance().updateWhitelist(); // 手动刷新ip白名单
+        response.sendRedirect(request.getContextPath() + "/page/white/2214086D382FE0823550CAD6B19EA205?flag=getAllList");
+    }
+
+    // 手动刷新 Token
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 获取新token
+        DialecticalCloud.getTokenFromApi();
         response.sendRedirect(request.getContextPath() + "/page/white/2214086D382FE0823550CAD6B19EA205?flag=getAllList");
     }
 

@@ -72,11 +72,11 @@ public class ErrorLog {
     @Override
     public String toString() {
         return "ErrorLogs{" +
-                "id=" + id +
-                ", error_type='" + error_type + '\'' +
-                ", error_message='" + error_message + '\'' +
-                ", error_time='" + error_time + '\'' +
-                ", error_stack='" + error_stack + '\'' +
-                '}';
+            "id=" + id +
+            ", error_type='" + error_type + '\'' +
+            ", error_message='" + error_message + '\'' +
+            ", error_time='" + error_time + '\'' +
+            ", error_stack='" + error_stack + '\'' +
+            '}';
     }
 }

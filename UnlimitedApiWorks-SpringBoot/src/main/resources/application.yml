@@ -1,0 +1,6 @@
+server:
+  port: 8000
+
+spring:
+  banner:
+    location: classpath:banner/logo.txt

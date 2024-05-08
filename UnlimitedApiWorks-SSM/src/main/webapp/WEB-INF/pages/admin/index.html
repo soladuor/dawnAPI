@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      th:with="path=|${#request.contextPath}/page/white/2214086D382FE0823550CAD6B19EA205|">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}">
+</head>
+<body>
+<!-- 提示 -->
+<div th:if="${result!=null}">
+    <script>
+        window.onload = () => {
+            layer.msg("[[${result}]]", {time: 700});
+        }
+    </script>
+</div>
+<!-- 页面 -->
+<div id="admin" style="padding: 50px 0 0 50px">
+    <h1>
+        接口剩余访问次数：<span th:text="${application.apiTimes}" th:if="${application.apiTimes}"></span>
+    </h1>
+    <a th:href="${path}+'/getAllList'">
+        <button type="button" class="layui-btn layui-btn-primary">刷新列表</button>
+    </a>
+    <br>
+    <h1>白名单ip表</h1>
+    <br>
+    <table border="1" width="60%" style="text-align: center">
+        <tr>
+            <th>Id</th>
+            <th>IP</th>
+            <th>归属地</th>
+            <th>备注</th>
+            <th>创建时间</th>
+        </tr>
+        <tr th:each="whiteIP:${whitelist}" th:if="whitelist!=null">
+            <td th:text="${whiteIP.id}"></td>
+            <td th:text="${whiteIP.ipAddress}"></td>
+            <td th:text="${whiteIP.city}"></td>
+            <td th:text="${whiteIP.description}"></td>
+            <td th:text="${whiteIP.createdAt}"></td>
+            <td>
+                <button type="button" th:onclick="deleteIP('[[${whiteIP.id}]]')" class="layui-btn layui-btn-danger">
+                    删除
+                </button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <button type="button" onclick="addIP()" class="layui-btn">添加IP</button>
+    <hr>
+    <h1>标识表</h1>
+    <br>
+    <table border="1" width="60%" style="text-align: center">
+        <tr>
+            <th>key</th>
+            <th>value</th>
+            <th>描述</th>
+        </tr>
+        <tr th:each="identifier:${identifierList}" th:if="identifierList!=null">
+            <td th:text="${identifier.key}"></td>
+            <td th:text="${identifier.value}"></td>
+            <td th:text="${identifier.description}"></td>
+        </tr>
+    </table>
+    <hr>
+    <h1>错误表</h1>
+    <br>
+    <table border="1" width="90%" style="text-align: center">
+        <tr>
+            <th>id</th>
+            <th>报错类型</th>
+            <th>错误信息</th>
+            <th>错误发生时间</th>
+            <th>错误堆栈信息</th>
+            <th>
+                <a th:href="|${path}/deleteAllErrLog|">
+                    <button type="button" class="layui-btn layui-btn-danger">
+                        删除全部
+                    </button>
+                </a>
+            </th>
+        </tr>
+        <tr th:each="error:${errorList}" th:if="errorList!=null">
+            <td th:text="${error.id}"></td>
+            <td th:text="${error.errorType}"></td>
+            <td th:text="${error.errorMessage}"></td>
+            <td th:text="${error.errorTime}"></td>
+            <td th:text="${error.errorStack}"></td>
+            <td>
+                <button type="button" th:onclick="deleteErrLog('[[${error.id}]]')" class="layui-btn layui-btn-danger">
+                    删除
+                </button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a th:href="|${path}/refreshToken|">
+        <button type="button" class="layui-btn layui-btn-warm">手动刷新 Token</button>
+    </a>
+    <br>
+</div>
+<script th:src="@{/static/layui/layui.js}"></script>
+<script th:src="@{/static/lodash-4.17.21.min.js}"></script>
+<script>
+    layui.use(() => {
+        const layer = layui.layer
+            , form = layui.form;
+    });
+    const addIP = () => {
+        layer.open({
+            type: 1,
+            area: ['420px', ''], //宽高
+            offset: '100px',
+            title: "请输入添加的IP",
+            content: `
+                <form style="padding: 20px;">
+                    <label>
+                        IP <input type="text" name="ip" maxlength="15" class="layui-input">
+                    </label>
+                    <br>
+                    <label>
+                        备注 <input type="text" name="description" maxlength="200" class="layui-input">
+                    </label>
+                    <br>
+                    <div style="text-align: right">
+                        <button type="button" onclick="checkIP(ip.value,description.value)"
+                            class="layui-btn  layui-btn-primary layui-border-blue">
+                                添加
+                        </button>
+                        <button type="reset"
+                            class="layui-btn  layui-btn-primary layui-border-blue">
+                                重置
+                        </button>
+                    </div>
+                </form>`
+        });
+    }
+    const checkIP = _.throttle((ip, description) => {
+        const ipRegex = /^(?:(?:1\d{2}|2[0-4]\d|25[0-5]|\d\d?)\.){3}(?:1\d{2}|2[0-4]\d|25[0-5]|\d\d?)$/;
+        if (ipRegex.test(ip)) {
+            if (description != null && description !== "" && description !== undefined) {
+                window.location.replace("[[${path}]]/addIP?ip=" + ip + "&description=" + description);
+            } else {
+                layer.msg('备注不能为空', {icon: 2});
+            }
+        } else {
+            layer.msg('IP地址格式错误', {icon: 2});
+        }
+    }, 3000)
+    const deleteIP = (id) => {
+        layer.confirm('确定要删除吗？', {
+            btn: ['确认', '取消'], //按钮
+            offset: '100px'
+        }, function () {
+            window.location.replace('[[${path}]]/deleteIP?id=' + id);
+        }, function () {
+            layer.msg('正确的选择', {icon: 6, time: 1000});
+        });
+    }
+    const deleteErrLog = (id) => {
+        layer.confirm('确定要删除吗？', {
+            btn: ['确认', '取消'], //按钮
+            offset: '100px'
+        }, function () {
+            window.location.replace('[[${path}]]/deleteErrLog?id=' + id);
+        });
+    }
+</script>
+</body>
+</html>

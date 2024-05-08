@@ -21,7 +21,7 @@ public class WhitelistDAOImpl extends BaseDAOImpl implements WhitelistDAO {
     @Override
     public void addWhitelist(Whitelist whitelist) {
         String sql = "INSERT INTO whitelist(ip_address, description, city)" +
-                " VALUES(?,?,?)";
+            " VALUES(?,?,?)";
         try {
             update(sql, whitelist.getIp_address(), whitelist.getDescription(), whitelist.getCity());
         } catch (SQLException e) {

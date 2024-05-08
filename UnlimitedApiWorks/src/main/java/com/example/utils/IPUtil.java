@@ -5,6 +5,9 @@ import com.alibaba.fastjson2.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 
 public class IPUtil {
+    private static final String IPBaseURL = "https://whois.pconline.com.cn/ipJson.jsp?json=true";
+    private static String nativeIp = null; // 本机ip
+
     public static String getIpAddress(HttpServletRequest request) {
         String sourceIp = null;
         /*
@@ -37,9 +40,6 @@ public class IPUtil {
         }
         return sourceIp;
     }
-
-    private static final String IPBaseURL = "https://whois.pconline.com.cn/ipJson.jsp?json=true";
-    private static String nativeIp = null; // 本机ip
 
     public static String getCityByIP(String ip) {
         String respText = BaseHttpUtil.doGet(IPBaseURL + "&ip=" + ip, true);

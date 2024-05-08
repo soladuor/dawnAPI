@@ -119,6 +119,11 @@
         <button type="button" class="layui-btn layui-btn-warm">手动重新加载数据库到配置</button>
     </a>
     <br>
+    <br>
+    <a href="${pageScope.path}?flag=refreshToken">
+        <button type="button" class="layui-btn layui-btn-warm">手动刷新 Token</button>
+    </a>
+    <br>
 </div>
 <script src="<c:url value="/static/layui/layui.js"/>"></script>
 <script src="<c:url value="/static/lodash-4.17.21.min.js"/>"></script>

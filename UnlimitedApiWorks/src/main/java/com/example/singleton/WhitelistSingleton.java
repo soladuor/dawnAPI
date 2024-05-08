@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class WhitelistSingleton {
+    private static volatile WhitelistSingleton instance;
     private volatile Map<String, String> whiteMap; // 白名单Map
     private volatile List<Whitelist> whiteList; // 白名单列表
-    private static volatile WhitelistSingleton instance;
 
     private WhitelistSingleton() {
     }

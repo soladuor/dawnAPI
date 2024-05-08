@@ -11,10 +11,10 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class InitListener implements ServletContextListener {
 
+    private final DialecticalCloud dialecticalCloud = new DialecticalCloud();
+
     public InitListener() {
     }
-
-    private final DialecticalCloud dialecticalCloud = new DialecticalCloud();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

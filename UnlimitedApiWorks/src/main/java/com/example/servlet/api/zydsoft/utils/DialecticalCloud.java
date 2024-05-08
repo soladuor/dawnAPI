@@ -66,16 +66,17 @@ public class DialecticalCloud {
         String url = baseUrl + "/token?partnerId=" + partnerId + "&secret=" + secret + "&timestamp=" + timestamp;
         String respText = BaseHttpUtil.doGet(url, true);
         // 成功的返回
-        Object token = com.alibaba.fastjson2.JSONObject.parseObject(respText).get("token");
+        Object newToken = com.alibaba.fastjson2.JSONObject.parseObject(respText).get("token");
         // Object expiresIn = com.alibaba.fastjson2.JSONObject.parseObject(respText).get("expiresIn");
-        if (token == null) {
+        if (newToken == null) {
             Object code = com.alibaba.fastjson2.JSONObject.parseObject(respText).get("code");
             Object message = com.alibaba.fastjson2.JSONObject.parseObject(respText).get("message");
             ErrorLogger.error("token返回值为空", code + " " + message);
         } else {
-            System.out.println("token更新成功: " + token);
+            token = (String) newToken;
+            System.out.println("token更新成功: " + newToken);
         }
-        return (String) token;
+        return (String) newToken;
     }
 
     public void start() {
@@ -84,14 +85,8 @@ public class DialecticalCloud {
         // 解决方案是添加一个try catch
         final Runnable updateTask = () -> {
             try {
-                // 获取新token的代码
-                String newToken = DialecticalCloud.getTokenFromApi();
-                if (newToken != null) {
-                    // 更新当前token
-                    token = newToken;
-                } else {
-                    ErrorLogger.error("token没有更新", "自动任务没有得到token");
-                }
+                // 获取新token
+                DialecticalCloud.getTokenFromApi();
             } catch (Exception e) {
                 e.printStackTrace();
             }

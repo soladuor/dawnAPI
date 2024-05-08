@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class IdentifierSingleton {
+    private static volatile IdentifierSingleton instance;
     private volatile Map<String, String> identifierMap; // 所有标识map
     private volatile List<Identifier> identifierList; // 所有标识list
-    private static volatile IdentifierSingleton instance;
 
     private IdentifierSingleton() {
     }

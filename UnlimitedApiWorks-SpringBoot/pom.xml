@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.soladuor</groupId>
+    <artifactId>UnlimitedApiWorks-SpringBoot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>UnlimitedApiWorks-SpringBoot</name>
+    <description>UnlimitedApiWorks-SpringBoot</description>
+
+    <!-- springboot父工程（启动器starter），内部包含很多springboot子工程 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.16</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <dependencies>
+        <!-- springboot web 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- 由于 spring-boot-starter-web2.7 默认的 snakeyaml 版本有漏洞，所以得自定义版本 -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- springboot test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- SpringBoot 配置处理器（自定义属性配置资源用的） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!-- springboot提供的开发者工具（项目如果很大，不推荐使用） -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.boot</groupId> -->
+        <!--     <artifactId>spring-boot-devtools</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- thymeleaf 模板引擎 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- lombok插件
+        【优点：代码更精简和直观】
+        【缺点：团队开发时，只要有一个人用，所有人就都得用lombok插件，不然编译失败】（个人开发没啥问题）
+         -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- &lt;!&ndash; springboot 官方推荐数据源（HikariCP） &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.boot</groupId> -->
+        <!--     <artifactId>spring-boot-starter-jdbc</artifactId> -->
+        <!-- </dependency> -->
+        <!-- &lt;!&ndash; MySQL驱动 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>mysql</groupId> -->
+        <!--     <artifactId>mysql-connector-java</artifactId> -->
+        <!--     <version>8.0.31</version> -->
+        <!-- </dependency> -->
+
+        <!-- &lt;!&ndash; 整合mybatis &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.mybatis.spring.boot</groupId> -->
+        <!--     <artifactId>mybatis-spring-boot-starter</artifactId> -->
+        <!--     <version>2.2.2</version> -->
+        <!-- </dependency> -->
+        <!-- &lt;!&ndash; 通用mapper工具 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>tk.mybatis</groupId> -->
+        <!--     <artifactId>mapper-spring-boot-starter</artifactId> -->
+        <!--     <version>2.1.5</version> -->
+        <!-- </dependency> -->
+        <!-- &lt;!&ndash; 分页插件 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>com.github.pagehelper</groupId> -->
+        <!--     <artifactId>pagehelper-spring-boot-starter</artifactId> -->
+        <!--     <version>1.4.6</version> -->
+        <!-- </dependency> -->
+        
+        <!-- &lt;!&ndash; hibernate 校验 &ndash;&gt; -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.boot</groupId> -->
+        <!--     <artifactId>spring-boot-starter-validation</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- &lt;!&ndash; Druid连接池 &ndash;&gt; -->
+        <!-- &lt;!&ndash; <dependency> &ndash;&gt; -->
+        <!-- &lt;!&ndash;     <groupId>com.alibaba</groupId> &ndash;&gt; -->
+        <!-- &lt;!&ndash;     <artifactId>druid-spring-boot-starter</artifactId> &ndash;&gt; -->
+        <!-- &lt;!&ndash;     <version>1.2.16</version> &ndash;&gt; -->
+        <!-- &lt;!&ndash; </dependency> &ndash;&gt; -->
+
+        <!-- springboot实现的AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- springboot 健康检查（微服务可以用这个来检查，idea有这个也可以看映射详情了）
+         /actuator/health -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- springboot 打包插件 -->
+            <!-- 如果install太久，可以打开“跳过测试模式” -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>

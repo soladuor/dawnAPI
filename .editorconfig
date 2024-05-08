@@ -1,0 +1,33 @@
+# 官方文件格式详情 https://editorconfig.org/#file-format-details
+# 官方配置规范 https://spec.editorconfig.org/
+
+# vscode格式化代码快捷键 shift+alt+f
+# 注：换行符设置是提示编辑器的，与 .gitattributes 不冲突
+
+
+# 根目录的配置文件，编辑器会由当前目录向上查找，如果找到 `roor = true` 的文件，则不再查找
+root = true
+
+
+# 正则*匹配所有文件
+[*]
+# 文件编码格式
+charset = utf-8
+# 结尾换行符，可选 "lf"、"cr"、"crlf"
+end_of_line = lf
+# 缩进空格数量
+# indent_size = 4
+# 空格缩进方式，可选 "space"、"tab"
+indent_style = space
+# 文件末尾添加一个空行
+insert_final_newline = true
+# 不保留行末空格
+trim_trailing_whitespace = true
+
+
+# 正则匹配以.md结尾的文件
+[*.md]
+# 文件末尾添加一个空行
+insert_final_newline = false
+# 不保留行末空格
+trim_trailing_whitespace = false

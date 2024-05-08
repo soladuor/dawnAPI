@@ -5,7 +5,7 @@ import com.example.dao.BaseDAOImpl;
 import com.example.dao.IdentifierDAO;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
 
 public class IdentifierDAOImpl extends BaseDAOImpl implements IdentifierDAO {
     @Override

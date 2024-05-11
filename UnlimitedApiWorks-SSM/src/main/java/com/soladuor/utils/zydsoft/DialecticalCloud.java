@@ -5,8 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soladuor.service.IdentifierService;
-import com.soladuor.utils.BaseHttpUtil;
-import com.soladuor.utils.BaseUtil;
+import com.soladuor.utils.HttpUtils;
+import com.soladuor.utils.BaseUtils;
 import com.soladuor.utils.ErrorLogger;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
@@ -38,7 +38,7 @@ public class DialecticalCloud {
         httpGet.addHeader("Authorization", "Bearer " + token);
         // 如果发现客户端或服务器出现了类似于长时间等待或资源耗尽等问题，可以尝试使用"Connection: close"请求头关闭连接
         // httpGet.addHeader("Connection", "close");
-        return BaseHttpUtil.doGet(httpGet, true);
+        return HttpUtils.doGet(httpGet, true);
     }
 
     public static String doPost(String url, SortedMap<Object, Object> param, String post_params) {
@@ -48,13 +48,13 @@ public class DialecticalCloud {
         httpPost.addHeader("Content-Type", "application/json");
         // 如果发现客户端或服务器出现了类似于长时间等待或资源耗尽等问题，可以尝试使用"Connection: close"请求头关闭连接
         // httpPost.addHeader("Connection", "close");
-        return BaseHttpUtil.doPost(httpPost, post_params, true);
+        return HttpUtils.doPost(httpPost, post_params, true);
     }
 
     public static String createGetSign(SortedMap<Object, Object> parameters) {
         // long timestamp = System.currentTimeMillis() / 1000;
         // parameters.put("timestamp", timestamp); // 添加时间戳
-        StringBuilder stringA = BaseUtil.asciiSortAndConcatenateParams(parameters);
+        StringBuilder stringA = BaseUtils.asciiSortAndConcatenateParams(parameters);
         // 加密并转换为大写字符
         // stringA是StringBuffer类型，可以用stringA.toString()转换为String类型
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
@@ -64,10 +64,10 @@ public class DialecticalCloud {
     public static String createPostSign(SortedMap<Object, Object> param, String post_params) {
         // long timestamp = System.currentTimeMillis() / 1000;
         // param.put("timestamp", timestamp); // 添加时间戳
-        String paramStr = BaseUtil.asciiSortAndConcatenateParams(param).toString();
+        String paramStr = BaseUtils.asciiSortAndConcatenateParams(param).toString();
         param.put("post_params", post_params);
         // 加密并转换为大写字符
-        StringBuilder stringA = BaseUtil.asciiSortAndConcatenateParams(param);
+        StringBuilder stringA = BaseUtils.asciiSortAndConcatenateParams(param);
         String sign = DigestUtils.sha256Hex(stringA + token).toUpperCase();
         return paramStr + "sign=" + sign;
     }
@@ -79,7 +79,7 @@ public class DialecticalCloud {
         String partnerId = service.getPartnerId();
         String secret = service.getSecret();
         String url = baseUrl + "/token?partnerId=" + partnerId + "&secret=" + secret + "&timestamp=" + timestamp;
-        String respText = BaseHttpUtil.doGet(url, true);
+        String respText = HttpUtils.doGet(url, true);
         // 成功的返回
         try {
             ObjectMapper objectMapper = new ObjectMapper();

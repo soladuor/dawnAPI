@@ -6,7 +6,7 @@ import com.soladuor.exception.GraceException;
 import com.soladuor.mapper.WhitelistMapper;
 import com.soladuor.pojo.Whitelist;
 import com.soladuor.service.WhitelistService;
-import com.soladuor.utils.IPUtil;
+import com.soladuor.utils.IPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class WhitelistServiceImpl implements WhitelistService {
     @Override
     public void addWhitelist(String ip, String description) {
         try {
-            String city = IPUtil.getCityByIP(ip);
+            String city = IPUtils.getCityByIP(ip);
             Whitelist whitelist = new Whitelist(ip, description, city);
             whitelistMapper.addWhitelist(whitelist);
         } catch (JsonProcessingException e) {

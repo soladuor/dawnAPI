@@ -1,6 +1,6 @@
 package com.soladuor.controller;
 
-import com.soladuor.utils.BaseUtil;
+import com.soladuor.utils.BaseUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +21,7 @@ public class LoginController {
     )
     @ResponseBody
     public String login(String name, String password, String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (BaseUtil.stringsIsEmpty(name, password) || !BaseUtil.isEmpty(code)) {
+        if (BaseUtils.stringsIsEmpty(name, password) || !BaseUtils.isEmpty(code)) {
             // 输入验证码则登录失败
             Object kaptchaCode = request.getSession().getAttribute("kaptchaCode");
             if (kaptchaCode != null) {

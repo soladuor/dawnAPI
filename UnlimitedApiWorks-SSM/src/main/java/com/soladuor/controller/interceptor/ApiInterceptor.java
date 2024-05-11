@@ -1,7 +1,7 @@
 package com.soladuor.controller.interceptor;
 
 import com.soladuor.service.WhitelistService;
-import com.soladuor.utils.IPUtil;
+import com.soladuor.utils.IPUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class ApiInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ipAddress = IPUtil.getIpAddress(request);
+        String ipAddress = IPUtils.getIpAddress(request);
         Map<String, String> whiteMap = whitelistService.getWhiteMap();
         if (whiteMap.containsKey(ipAddress) || whiteMap.containsKey("0.0.0.0")) {
             // 白名单中有此ip或者有0.0.0.0保留ip

@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.soladuor.service.IdentifierService;
-import com.soladuor.utils.BaseHttpUtil;
-import com.soladuor.utils.IPUtil;
+import com.soladuor.utils.HttpUtils;
+import com.soladuor.utils.IPUtils;
 import com.soladuor.utils.crypto.AnalogCryptoJS;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
@@ -46,7 +46,7 @@ public class ZydsoftWhitelist {
         String url = createRequestParams(null);
         HttpGet httpGet = new HttpGet(getBaseUrl() + load + url);
         configureRequestHeader(httpGet);
-        return BaseHttpUtil.doGet(httpGet, true);
+        return HttpUtils.doGet(httpGet, true);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ZydsoftWhitelist {
         HttpPost httpPost = new HttpPost(getBaseUrl() + modify + url);
         configureRequestHeader(httpPost);
         // String json = objectMapper.writeValueAsString(postParams); // 对象转JSON字符串
-        String resp = BaseHttpUtil.doPost(httpPost, postParams, true);
+        String resp = HttpUtils.doPost(httpPost, postParams, true);
         // 修改之后需要调用一下 request_token_delete 函数
         String tokenDelete = request_token_delete();
         System.out.println("request_token_delete() = " + tokenDelete);
@@ -78,7 +78,7 @@ public class ZydsoftWhitelist {
         String url = createRequestParams(null);
         HttpGet httpGet = new HttpGet(getBaseUrl() + delete + url);
         configureRequestHeader(httpGet);
-        return BaseHttpUtil.doGet(httpGet, true);
+        return HttpUtils.doGet(httpGet, true);
     }
 
     /**
@@ -136,8 +136,8 @@ public class ZydsoftWhitelist {
     public static boolean addNativeIpToWhitelist() throws JsonProcessingException {
         // 利用 LinkedHashSet 的特性去重，且可以保持原有顺序
         LinkedHashSet<String> list = getWhitelist();
-        String ip = IPUtil.getNativeIp();
-        if (IPUtil.isIp(ip)) {
+        String ip = IPUtils.getNativeIp();
+        if (IPUtils.isIp(ip)) {
             list.add(ip);
         }
         return setWhitelist(list);

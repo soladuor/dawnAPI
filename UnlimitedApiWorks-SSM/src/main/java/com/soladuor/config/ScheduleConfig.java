@@ -1,6 +1,6 @@
 package com.soladuor.config;
 
-import com.soladuor.utils.BaseUtil;
+import com.soladuor.utils.BaseUtils;
 import com.soladuor.utils.zydsoft.DialecticalCloud;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class ScheduleConfig {
     @Scheduled(fixedDelay = 7000 * 1000)
     public void taskToken() {
         String tokenFromApi = DialecticalCloud.getTokenFromApi();
-        if (!BaseUtil.isEmpty(tokenFromApi)) {
+        if (!BaseUtils.isEmpty(tokenFromApi)) {
             // log.info("token更新成功 ==> " + LocalDateTime.now());
             System.out.println("Token update successful!!!");
         } else {

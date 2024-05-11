@@ -6,8 +6,8 @@ import com.soladuor.pojo.Whitelist;
 import com.soladuor.service.ErrorLogService;
 import com.soladuor.service.IdentifierService;
 import com.soladuor.service.WhitelistService;
-import com.soladuor.utils.BaseUtil;
-import com.soladuor.utils.IPUtil;
+import com.soladuor.utils.BaseUtils;
+import com.soladuor.utils.IPUtils;
 import com.soladuor.utils.zydsoft.DialecticalCloud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,11 +55,11 @@ public class WhitelistController {
 
     @GetMapping("/addIP")
     public String addIP(@RequestParam String ip, @RequestParam String description) {
-        if (BaseUtil.stringsIsEmpty(ip, description)) {
+        if (BaseUtils.stringsIsEmpty(ip, description)) {
             return REDIRECT_WHITELIST_GET_ALL_LIST;
         }
         // 正则表达式验证IP地址
-        if (IPUtil.isIp(ip)) {
+        if (IPUtils.isIp(ip)) {
             whitelistService.addWhitelist(ip, description);
         }
         return REDIRECT_WHITELIST_GET_ALL_LIST;
@@ -67,7 +67,7 @@ public class WhitelistController {
 
     @GetMapping("/deleteIP")
     public String deleteIP(@RequestParam String id) {
-        if (!BaseUtil.isEmpty(id)) {
+        if (!BaseUtils.isEmpty(id)) {
             whitelistService.deleteWhitelistById(id);
         }
         return REDIRECT_WHITELIST_GET_ALL_LIST;
@@ -91,7 +91,7 @@ public class WhitelistController {
     // 删除单个错误日志
     @GetMapping("/deleteErrLog")
     public String deleteErrLog(@RequestParam String id) {
-        if (!BaseUtil.isEmpty(id)) {
+        if (!BaseUtils.isEmpty(id)) {
             errorLogService.deleteErrorLogById(Integer.valueOf(id));
         }
         // response.getWriter().write("删除失败，参数为空");

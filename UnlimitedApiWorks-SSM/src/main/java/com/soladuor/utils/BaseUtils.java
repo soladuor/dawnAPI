@@ -4,11 +4,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
-public class BaseUtil {
+public class BaseUtils {
+
+    /**
+     * 判断字符串是否为空
+     */
     public static boolean isEmpty(String str) {
         return str == null || str.length() == 0;
     }
 
+    /**
+     * 判断多个字符串是否为空
+     */
     public static boolean stringsIsEmpty(String... str) {
         for (String s : str) {
             if (s == null || s.length() == 0) {
@@ -18,6 +25,9 @@ public class BaseUtil {
         return false;
     }
 
+    /**
+     * ascii 排序并拼接参数
+     */
     public static StringBuilder asciiSortAndConcatenateParams(SortedMap<Object, Object> parameters) {
         StringBuilder stringA = new StringBuilder();
         Set<Map.Entry<Object, Object>> entrySet = parameters.entrySet();  // 所有参与传参的参数按照accsii排序（升序）

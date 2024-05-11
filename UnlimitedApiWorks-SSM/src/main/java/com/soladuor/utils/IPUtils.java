@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
-public class IPUtil {
+public class IPUtils {
     private static final String IPBaseURL = "https://whois.pconline.com.cn/ipJson.jsp?json=true";
     private static String nativeIp = null; // 本机ip
 
@@ -44,7 +44,7 @@ public class IPUtil {
             ipAddresses = request.getRemoteAddr();
         }
         // 对于通过多个代理的情况，第一个IP为客户端真实IP，多个IP按照','分割
-        if (!BaseUtil.isEmpty(ipAddresses)) {
+        if (!BaseUtils.isEmpty(ipAddresses)) {
             sourceIp = ipAddresses.split(",")[0];
         }
         return sourceIp;
@@ -57,7 +57,7 @@ public class IPUtil {
      * @return 城市
      */
     public static String getCityByIP(String ip) throws JsonProcessingException {
-        String respText = BaseHttpUtil.doGet(IPBaseURL + "&ip=" + ip, true);
+        String respText = HttpUtils.doGet(IPBaseURL + "&ip=" + ip, true);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(respText);
         System.out.println(jsonNode);
@@ -77,7 +77,7 @@ public class IPUtil {
      * @return 本机ip
      */
     public static String getNativeIp() throws JsonProcessingException {
-        String respText = BaseHttpUtil.doGet(IPBaseURL, true);
+        String respText = HttpUtils.doGet(IPBaseURL, true);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(respText);
         return jsonNode.get("ip").asText();

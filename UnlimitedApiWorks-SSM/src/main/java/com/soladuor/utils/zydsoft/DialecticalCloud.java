@@ -4,10 +4,10 @@ package com.soladuor.utils.zydsoft;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.soladuor.exception.GraceException;
 import com.soladuor.service.IdentifierService;
-import com.soladuor.utils.HttpUtils;
 import com.soladuor.utils.BaseUtils;
-import com.soladuor.utils.ErrorLogger;
+import com.soladuor.utils.HttpUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -90,7 +90,7 @@ public class DialecticalCloud {
             if (newToken == null) {
                 JsonNode code = jsonNode.get("code");
                 JsonNode message = jsonNode.get("message");
-                ErrorLogger.error("token返回值为空", code + " " + message);
+                GraceException.display("token返回值为空, " + code + " " + message);
             } else {
                 token = newToken.asText();
                 System.out.println("token更新成功: " + newToken);

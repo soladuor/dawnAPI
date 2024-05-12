@@ -1,9 +1,7 @@
 package com.soladuor.controller;
 
-import com.soladuor.pojo.ErrorLog;
 import com.soladuor.pojo.Identifier;
 import com.soladuor.pojo.Whitelist;
-import com.soladuor.service.ErrorLogService;
 import com.soladuor.service.IdentifierService;
 import com.soladuor.service.WhitelistService;
 import com.soladuor.utils.BaseUtils;
@@ -29,9 +27,6 @@ public class WhitelistController {
     public static String REDIRECT_WHITELIST_GET_ALL_LIST = "redirect:/page/white/2214086D382FE0823550CAD6B19EA205/getAllList";
 
     @Autowired
-    ErrorLogService errorLogService;
-
-    @Autowired
     IdentifierService identifierService;
 
     @Autowired
@@ -45,9 +40,6 @@ public class WhitelistController {
         // 标识表
         List<Identifier> identifierList = identifierService.getIdentifierList();
         map.put("identifierList", identifierList);
-        // 错误表
-        List<ErrorLog> errorList = errorLogService.getErrorList();
-        map.put("errorList", errorList);
         // 响应
         map.put("result", "刷新成功");
         return "admin/index";
@@ -81,20 +73,4 @@ public class WhitelistController {
         return REDIRECT_WHITELIST_GET_ALL_LIST;
     }
 
-    // 删除全部错误日志
-    @GetMapping("/deleteAllErrLog")
-    public String deleteAllErrLog() {
-        errorLogService.deleteAllErrorLog();
-        return REDIRECT_WHITELIST_GET_ALL_LIST;
-    }
-
-    // 删除单个错误日志
-    @GetMapping("/deleteErrLog")
-    public String deleteErrLog(@RequestParam String id) {
-        if (!BaseUtils.isEmpty(id)) {
-            errorLogService.deleteErrorLogById(Integer.valueOf(id));
-        }
-        // response.getWriter().write("删除失败，参数为空");
-        return REDIRECT_WHITELIST_GET_ALL_LIST;
-    }
 }

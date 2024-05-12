@@ -1,5 +1,6 @@
 package com.soladuor.utils;
 
+import com.soladuor.exception.GraceException;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -94,7 +95,7 @@ public class HttpUtils {
             responseContent = getUtf8ResponseEntity(response);
         } catch (Exception e) {
             e.printStackTrace();
-            ErrorLogger.logException("发送请求出错", e);
+            GraceException.display("发送请求出错, " + e.getMessage());
         } finally {
             // 关闭资源
             closeSource(httpClient, response);
@@ -143,7 +144,7 @@ public class HttpUtils {
         // Http 响应状态码不为 200 时
         // 注：部分 api 平台在返回错误信息时的错误状态码表现在 Http 状态码，而不是在响应的 data.code 中
         if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-            ErrorLogger.error("请求失败", responseEntity);
+            GraceException.display("请求失败, " + responseEntity);
             return errDefaultContent;
         }
         return responseEntity;

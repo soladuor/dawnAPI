@@ -1,6 +1,5 @@
 package com.soladuor.controller.api;
 
-import com.soladuor.utils.ErrorLogger;
 import com.soladuor.utils.result.JSONResult;
 import com.soladuor.utils.zydsoft.DialecticalCloud;
 import org.springframework.web.bind.annotation.*;
@@ -49,18 +48,17 @@ public class ZydsoftController {
         SortedMap<Object, Object> param = reqParamTraver(request);
         // 获取请求头中的Content-Type字段
         String contentType = request.getContentType();
-        try {
-            if (contentType != null && contentType.contains("application/json")) {
-                // 检查是否为JSON数据格式（失败会到try catch）
-                // JSONObject jsonObject = JSON.parseObject(reqBody);
-                return DialecticalCloud.doPost(url, param, reqBody);
-            } else {
-                return JSONResult.build(400, "contentType不符合规则", null);
-            }
-        } catch (Exception e) {
-            ErrorLogger.logException("辩证云请求异常", e);
-            return JSONResult.build(400, "参数不符合规则 reqBody: " + reqBody, null);
+        // try {
+        if (contentType != null && contentType.contains("application/json")) {
+            // 检查是否为JSON数据格式（失败会到try catch）
+            // JSONObject jsonObject = JSON.parseObject(reqBody);
+            return DialecticalCloud.doPost(url, param, reqBody);
+        } else {
+            return JSONResult.build(400, "contentType不符合规则", null);
         }
+        // } catch (Exception e) {
+        //     return JSONResult.build(400, "参数不符合规则 reqBody: " + reqBody, null);
+        // }
     }
 
 }

@@ -10,25 +10,13 @@ import com.soladuor.utils.IPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class WhitelistServiceImpl implements WhitelistService {
 
     @Autowired
     WhitelistMapper whitelistMapper;
-
-    @Override
-    public Map<String, String> getWhiteMap() {
-        List<Whitelist> allWhitelist = whitelistMapper.getAllWhitelist();// 更新List
-        Map<String, String> WhiteMap = new HashMap<>();
-        for (Whitelist white : allWhitelist) {
-            WhiteMap.put(white.getIpAddress(), white.getDescription());
-        }
-        return WhiteMap;
-    }
 
     @Override
     public List<Whitelist> getWhiteList() {

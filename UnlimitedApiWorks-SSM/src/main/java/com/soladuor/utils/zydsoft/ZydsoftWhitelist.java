@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.soladuor.exception.GraceException;
 import com.soladuor.service.IdentifierService;
 import com.soladuor.utils.HttpUtils;
 import com.soladuor.utils.IPUtils;
@@ -105,9 +106,13 @@ public class ZydsoftWhitelist {
     /**
      * 设置白名单列表
      *
-     * @return 响应结果 {"success":true}
+     * @return 设置成功返回 true
      */
     public static boolean setWhitelist(LinkedHashSet<String> whitelist) {
+        // 最多可添加30个ip地址
+        if (whitelist.size() > 30) {
+            GraceException.display("最多可添加30个ip地址");
+        }
         // 获取配置
         String requestLoad = request_load();
         // 将JSON中的白名单替换为新的白名单
@@ -129,9 +134,9 @@ public class ZydsoftWhitelist {
     }
 
     /**
-     * 添加本机ip到白名单
+     * 添加本机ip到白名单(只有在本机ip不在白名单中时才添加)
      *
-     * @return 响应结果 {"success":true}
+     * @return 设置成功返回 true
      */
     public static boolean addNativeIpToWhitelist() throws JsonProcessingException {
         // 利用 LinkedHashSet 的特性去重，且可以保持原有顺序
@@ -139,8 +144,9 @@ public class ZydsoftWhitelist {
         String ip = IPUtils.getNativeIp();
         if (IPUtils.isIp(ip)) {
             list.add(ip);
+            return setWhitelist(list);
         }
-        return setWhitelist(list);
+        return true;
     }
 
     /**

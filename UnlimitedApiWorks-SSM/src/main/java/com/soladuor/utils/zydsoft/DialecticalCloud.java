@@ -21,6 +21,7 @@ public class DialecticalCloud {
     private static String token = null; // 当前token
 
     static IdentifierService identifierService;
+    static ObjectMapper objectMapper = new ObjectMapper();
 
     // 使用set方法装配静态属性
     @Autowired
@@ -73,6 +74,13 @@ public class DialecticalCloud {
     }
 
     public static String getTokenFromApi() {
+        // 判断IP是否在白名单中，不存在则添加
+        try {
+            boolean inList = ZydsoftWhitelist.addNativeIpToWhitelist();
+            System.out.println("IP在白名单中: " + inList);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         long timestamp = System.currentTimeMillis() / 1000;
         String baseUrl = getBaseUrl();
         IdentifierService service = identifierService;
@@ -82,14 +90,13 @@ public class DialecticalCloud {
         String respText = HttpUtils.doGet(url, true);
         // 成功的返回
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(respText);
-
             JsonNode newToken = jsonNode.get("token");
             // JsonNode expiresIn = jsonNode.get("expiresIn");
             if (newToken == null) {
-                JsonNode code = jsonNode.get("code");
-                JsonNode message = jsonNode.get("message");
+                // 使用 path 避免空指针异常
+                int code = jsonNode.path("code").asInt();
+                String message = jsonNode.path("message").asText();
                 GraceException.display("token返回值为空, " + code + " " + message);
             } else {
                 token = newToken.asText();

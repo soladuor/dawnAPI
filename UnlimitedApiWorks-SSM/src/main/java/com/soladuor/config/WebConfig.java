@@ -30,6 +30,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     }
 
     // 添加过滤器
+    // getServletFilters()方法返回的所有Filter都会映射到DispatcherServlet
     @Override
     protected Filter[] getServletFilters() {
         // 处理中文乱码

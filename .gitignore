@@ -287,3 +287,4 @@ Temporary Items
 db.properties
 .idea
 *.iml
+application-dev.yml

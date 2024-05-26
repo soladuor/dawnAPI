@@ -66,49 +66,49 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- &lt;!&ndash; springboot 官方推荐数据源（HikariCP） &ndash;&gt; -->
-        <!-- <dependency> -->
-        <!--     <groupId>org.springframework.boot</groupId> -->
-        <!--     <artifactId>spring-boot-starter-jdbc</artifactId> -->
-        <!-- </dependency> -->
-        <!-- &lt;!&ndash; MySQL驱动 &ndash;&gt; -->
-        <!-- <dependency> -->
-        <!--     <groupId>mysql</groupId> -->
-        <!--     <artifactId>mysql-connector-java</artifactId> -->
-        <!--     <version>8.0.31</version> -->
-        <!-- </dependency> -->
+        <!-- springboot 官方推荐数据源（HikariCP） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- MySQL驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.31</version>
+        </dependency>
 
-        <!-- &lt;!&ndash; 整合mybatis &ndash;&gt; -->
-        <!-- <dependency> -->
-        <!--     <groupId>org.mybatis.spring.boot</groupId> -->
-        <!--     <artifactId>mybatis-spring-boot-starter</artifactId> -->
-        <!--     <version>2.2.2</version> -->
-        <!-- </dependency> -->
-        <!-- &lt;!&ndash; 通用mapper工具 &ndash;&gt; -->
-        <!-- <dependency> -->
-        <!--     <groupId>tk.mybatis</groupId> -->
-        <!--     <artifactId>mapper-spring-boot-starter</artifactId> -->
-        <!--     <version>2.1.5</version> -->
-        <!-- </dependency> -->
-        <!-- &lt;!&ndash; 分页插件 &ndash;&gt; -->
-        <!-- <dependency> -->
-        <!--     <groupId>com.github.pagehelper</groupId> -->
-        <!--     <artifactId>pagehelper-spring-boot-starter</artifactId> -->
-        <!--     <version>1.4.6</version> -->
-        <!-- </dependency> -->
-        
+        <!-- 整合mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <!-- 通用mapper工具 -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.6</version>
+        </dependency>
+
         <!-- &lt;!&ndash; hibernate 校验 &ndash;&gt; -->
         <!-- <dependency> -->
         <!--     <groupId>org.springframework.boot</groupId> -->
         <!--     <artifactId>spring-boot-starter-validation</artifactId> -->
         <!-- </dependency> -->
 
-        <!-- &lt;!&ndash; Druid连接池 &ndash;&gt; -->
-        <!-- &lt;!&ndash; <dependency> &ndash;&gt; -->
-        <!-- &lt;!&ndash;     <groupId>com.alibaba</groupId> &ndash;&gt; -->
-        <!-- &lt;!&ndash;     <artifactId>druid-spring-boot-starter</artifactId> &ndash;&gt; -->
-        <!-- &lt;!&ndash;     <version>1.2.16</version> &ndash;&gt; -->
-        <!-- &lt;!&ndash; </dependency> &ndash;&gt; -->
+        <!-- Druid连接池 -->
+        <!-- <dependency> -->
+        <!--     <groupId>com.alibaba</groupId> -->
+        <!--     <artifactId>druid-spring-boot-starter</artifactId> -->
+        <!--     <version>1.2.16</version> -->
+        <!-- </dependency> -->
 
         <!-- springboot实现的AOP -->
         <dependency>
@@ -121,6 +121,32 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--http工具库-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+        <!-- Apache Commons-Lang3 工具包 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <!-- hanlp -->
+        <dependency>
+            <groupId>com.hankcs</groupId>
+            <artifactId>hanlp</artifactId>
+            <version>portable-1.8.4</version>
+        </dependency>
+        <!--验证码工具-->
+        <!--该漏洞：由于使用的是 random 而不是 SecureRandom 生成的伪随机数作为 CAPTCHA 值，所以随机结果可预测-->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
         </dependency>
 
     </dependencies>

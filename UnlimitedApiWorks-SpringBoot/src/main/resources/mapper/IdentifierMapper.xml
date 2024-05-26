@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.soladuor.mapper.IdentifierMapper">
+
+    <select id="getIdentifierList" resultType="com.soladuor.pojo.Identifier">
+        SELECT
+            `key`,
+            `value`,
+            `description`
+        FROM
+            identifier
+    </select>
+    <select id="getIdentifierByKey" resultType="com.soladuor.pojo.Identifier">
+        SELECT
+            `key`,
+            `value`,
+            `description`
+        FROM
+            identifier
+        WHERE
+            `key` = #{key}
+    </select>
+    <update id="updateValueByKey">
+        UPDATE
+            identifier
+        SET
+            `value` = #{value}
+        WHERE
+            `key` = #{key}
+    </update>
+</mapper>

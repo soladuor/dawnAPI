@@ -11,7 +11,7 @@
  Target Server Version : 80031 (8.0.31)
  File Encoding         : 65001
 
- Date: 12/05/2024 22:59:21
+ Date: 25/05/2024 21:14:17
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `identifier`
     PRIMARY KEY (`key`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_0900_ai_ci COMMENT = '秘钥信息标识表'
   ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -58,16 +58,16 @@ VALUES
 DROP TABLE IF EXISTS `whitelist`;
 CREATE TABLE `whitelist`
 (
-    `id`          int                                                           NOT NULL AUTO_INCREMENT COMMENT '用于唯一标识每个IP',
-    `ip_address`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '存储IP地址的字段',
-    `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '描述字段',
-    `city`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'ip归属地',
-    `created_at`  timestamp                                                     NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'IP添加到表中的时间戳',
-    PRIMARY KEY (`id`) USING BTREE
+    `whitelist_id` int                                                           NOT NULL AUTO_INCREMENT COMMENT '用于唯一标识每个IP',
+    `ip_address`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '存储IP地址的字段',
+    `description`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '描述字段',
+    `city`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'ip归属地',
+    `created_at`   timestamp                                                     NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'IP添加到表中的时间戳',
+    PRIMARY KEY (`whitelist_id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 10
+  AUTO_INCREMENT = 12
   CHARACTER SET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci
+  COLLATE = utf8mb4_0900_ai_ci COMMENT = 'IP 白名单表'
   ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------

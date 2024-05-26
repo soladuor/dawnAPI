@@ -12,4 +12,6 @@ public interface WhitelistService {
     void addWhitelist(String ip, String description);
 
     void deleteWhitelistById(String id);
+
+    void updateDescById(String id, String description);
 }

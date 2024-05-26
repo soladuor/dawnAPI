@@ -23,4 +23,12 @@
         WHERE
             `key` = #{key}
     </select>
+    <update id="updateValueByKey">
+        UPDATE
+            identifier
+        SET
+            `value` = #{value}
+        WHERE
+            `key` = #{key}
+    </update>
 </mapper>

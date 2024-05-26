@@ -9,6 +9,9 @@ public interface IdentifierService {
 
     List<Identifier> getIdentifierList();
 
+    // 修改标识表
+    void updateValueByKey(String key, String value);
+
     // 合作方Id
     String getPartnerId();
 

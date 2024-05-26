@@ -1,4 +1,4 @@
-package com.soladuor.controller;
+package com.soladuor.controller.page;
 
 import com.soladuor.utils.BaseUtils;
 import org.springframework.stereotype.Controller;

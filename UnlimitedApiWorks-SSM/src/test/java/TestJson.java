@@ -49,9 +49,9 @@ public class TestJson {
     }
 
     @Test
-    public void test3() throws JsonProcessingException {
+    public void testGetValue() throws JsonProcessingException {
         String json1 = "{\"success\":true}";
-        String json2 = "{\"code\":412,\"message\":\"无效的sign\"}";
+        String json2 = "{\"code\":412,\"message\":\"无效的sign\",\"data\":{\"name\":\"namename\"}}";
 
         JsonNode jsonNode1 = objectMapper.readTree(json1);
         JsonNode success1 = jsonNode1.path("success");
@@ -59,16 +59,41 @@ public class TestJson {
 
         JsonNode jsonNode2 = objectMapper.readTree(json2);
         JsonNode success2 = jsonNode2.path("success");
-        System.out.println("success = " + (success2.textValue() == null));
+        System.out.println("success2.textValue() == null ==> " + (success2.textValue() == null));
 
         // 使用path避免空指针异常
+        System.out.println("使用path而不是get可以避免空指针异常：");
         System.out.println(objectMapper.readTree(json1).path("success").asBoolean());
         System.out.println(objectMapper.readTree(json2).path("success").asBoolean());
+        System.out.println("get == null ==> " + (objectMapper.readTree(json2).get("success") == null));
 
-        // toString 和 asText 在不存在的情况会返回空字符串，而 textValue 会返回 null
-        String string = objectMapper.readTree(json2).path("success").textValue();
-        System.out.println(string);
-        System.out.println(string == null);
+        // 对象不存在时
+        // toString 和 asText 会返回空字符串""
+        // textValue 会返回 null , 且在获取数字时也会返回 null
+        JsonNode successNode = objectMapper.readTree(json2).path("success");
+        System.out.println("字段不存在时：");
+        System.out.println("toString == \"\" ==> " + (successNode.toString().equals("")));
+        System.out.println("asText == \"\" ==> " + (successNode.asText().equals("")));
+        System.out.println("textValue() == null ==> " + (successNode.textValue() == null));
+
+        // 获取数字时(推荐使用 asInt() asLong() asDouble() 等方法
+        // textValue 在获取数字时会返回 null
+        JsonNode codeNode = objectMapper.readTree(json2).path("code");
+        System.out.println("获取数字时：");
+        System.out.println("toString = " + codeNode.toString());
+        System.out.println("asText = " + codeNode.asText());
+        System.out.println("textValue = " + codeNode.textValue());
+
+        // 数据为对象时
+        // toString 会返回对象的字符串形式(json字符串)
+        // asText 会返回空字符串""
+        // textValue 会返回 null
+        JsonNode dataNode = objectMapper.readTree(json2).path("data");
+        System.out.println("数据为对象时：");
+        System.out.println("toString = " + dataNode.toString());
+        System.out.println("asText = " + dataNode.asText());
+        System.out.println("textValue = " + dataNode.textValue());
+
     }
 
 }

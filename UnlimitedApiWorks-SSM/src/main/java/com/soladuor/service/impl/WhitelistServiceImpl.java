@@ -39,4 +39,9 @@ public class WhitelistServiceImpl implements WhitelistService {
     public void deleteWhitelistById(String id) {
         whitelistMapper.deleteWhitelistById(id);
     }
+
+    @Override
+    public void updateDescById(String id, String description) {
+        whitelistMapper.updateDescById(id, description);
+    }
 }

@@ -5,9 +5,13 @@
 
 <mapper namespace="com.soladuor.mapper.WhitelistMapper">
 
-    <select id="getAllWhitelist" resultType="com.soladuor.pojo.Whitelist">
+    <resultMap id="BaseResultMap" type="com.soladuor.pojo.Whitelist">
+        <id column="white_list_id" property="id"/>
+    </resultMap>
+
+    <select id="getAllWhitelist" resultMap="BaseResultMap">
         SELECT
-            `id`,
+            `white_list_id`,
             `ip_address`,
             `description`,
             `city`,
@@ -15,7 +19,7 @@
         FROM
             whitelist
     </select>
-    <insert id="addWhitelist">
+    <insert id="addWhitelist" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO
             whitelist(`ip_address`, `description`, `city`)
         VALUES
@@ -26,6 +30,14 @@
         FROM
             whitelist
         WHERE
-            `id` = #{id}
+            `white_list_id` = #{id}
     </delete>
+    <update id="updateDescById">
+        UPDATE
+            whitelist
+        SET
+            `description` = #{description}
+        WHERE
+            `white_list_id` = #{id}
+    </update>
 </mapper>

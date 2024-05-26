@@ -20,6 +20,11 @@ public class IdentifierServiceImpl implements IdentifierService {
         return identifierMapper.getIdentifierList();
     }
 
+    @Override
+    public void updateValueByKey(String key, String value) {
+        identifierMapper.updateValueByKey(key, value);
+    }
+
     // 合作方Id
     @Override
     public String getPartnerId() {

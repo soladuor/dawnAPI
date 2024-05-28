@@ -40,12 +40,11 @@ public class ApiInterceptor implements HandlerInterceptor {
                 times--; // 每次请求次数减1
                 request.getServletContext().setAttribute("apiTimes", times);
                 return true; // 放行
-            } else {
-                response.getWriter().write(
-                        "{\"code\":400,\"message\":\"ip " + ipAddress + "不在白名单中\"}"
-                );
             }
         }
+        response.getWriter().write(
+                "{\"code\":400,\"message\":\"ip " + ipAddress + "不在白名单中\"}"
+        );
         return false;
     }
 }

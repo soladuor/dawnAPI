@@ -23,7 +23,6 @@ public class ApiInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ipAddress = IPUtils.getIpAddress(request);
         List<Whitelist> whiteList = whitelistService.getWhiteList();
-        boolean flag = false;
         for (Whitelist white : whiteList) {
             String whiteIp = white.getIpAddress();
             if (whiteIp.equals(ipAddress) || whiteIp.equals("0.0.0.0")) {

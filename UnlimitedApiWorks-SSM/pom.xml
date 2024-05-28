@@ -99,14 +99,9 @@
         <!-- </dependency> -->
         <!-- 日志 -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>1.2.13</version>
         </dependency>
         <!-- lombok插件 -->
         <dependency>
@@ -140,11 +135,11 @@
             <version>portable-1.8.4</version>
         </dependency>
         <!--验证码工具-->
-        <!--该漏洞：由于使用的是 random 而不是 SecureRandom 生成的伪随机数作为 CAPTCHA 值，所以随机结果可预测-->
+        <!-- com.github.penggle的kaptcha漏洞：使用 random 而不是 SecureRandom 生成的伪随机数作为 CAPTCHA 值，所以随机结果可预测-->
         <dependency>
-            <groupId>com.github.penggle</groupId>
+            <groupId>pro.fessional</groupId>
             <artifactId>kaptcha</artifactId>
-            <version>2.3.2</version>
+            <version>2.3.3</version>
         </dependency>
         <!-- 加密工具（httpclient中包含了） -->
         <!-- <dependency> -->
